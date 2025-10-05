@@ -32,7 +32,7 @@
 
 # \### 🚀 Demo
 
-# 👉 \*\*Live Preview:\*\* \[https://cgiuseppe8786.github.io/survey-form/]
+# 👉 \*\*Live Preview:\*\* \[https://cgiuseppe8786.github.io/SurveyForm/]
 
 # 
 
