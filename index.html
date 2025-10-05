@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- Configurazione viewport per un comportamento responsive coerente sui dispositivi mobili -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Survey Form</title>
+
+  <!-- Foglio di stile principale del progetto -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Descrizione sintetica per motori di ricerca e anteprime social -->
+  <meta name="description"
+    content="Modulo di sondaggio per raccogliere feedback su aree di miglioramento: front-end, back-end, design/UX." />
+</head>
+
+<body>
+
+  <!-- Pulsante per il cambio tema -->
+  <span id="theme-toggle" class="theme-icon" role="button" tabindex="0" aria-label="Cambia tema" title="Cambia tema">
+    🌙
+  </span>
+
+  <!--
+    Contenuto principale.
+    <main> garantisce una struttura semantica chiara e facilita la navigazione assistita.
+    .container gestisce larghezza e centratura in modo responsivo.
+  -->
+  <main class="container" id="main-content">
+    <!--
+      Intestazione del modulo: titolo e breve descrizione dello scopo.
+      Testi concisi per orientare l’utente prima della compilazione.
+    -->
+    <header>
+      <h1 id="title">Modulo di Sondaggio</h1>
+      <p id="description">
+        Grazie per il tempo dedicato a compilare il modulo: i tuoi feedback ci aiutano a migliorare.
+      </p>
+    </header>
+
+    <!--
+      Modulo di raccolta dati.
+      Invio tramite POST (endpoint placeholder). La validazione nativa HTML5 riduce la necessità di script.
+      aria-describedby collega la descrizione introduttiva al modulo per i lettori di schermo.
+    -->
+    <form id="survey-form" action="https://www.freecodecamp.com/email-submit" method="post" aria-describedby="description">
+
+      <!-- Identificazione: campo obbligatorio con autocompletamento supportato dai browser moderni -->
+      <label for="name" id="name-label">Nome:</label>
+      <input type="text" id="name" name="name" autocomplete="name" placeholder="Inserisci il tuo nome" required />
+
+      <!-- Contatto: validazione del formato email gestita dal browser -->
+      <label for="email" id="email-label">Email:</label>
+      <input type="email" id="email" name="email" autocomplete="email" placeholder="Inserisci la tua email" required />
+
+      <!-- Dato demografico opzionale: range realistico, step intero e tastierino numerico su mobile -->
+      <label for="number" id="number-label">Età:</label>
+      <input type="number" id="number" name="number" placeholder="Inserisci la tua età" min="1" max="120" step="1"
+        inputmode="numeric" aria-describedby="age-hint" />
+      <!-- Indicazione discreta per tecnologie assistive -->
+      <small id="age-hint" class="visually-hidden">Valore compreso tra 1 e 120.</small>
+
+      <!-- Preferenza primaria: opzioni coerenti con il contesto competenze/formazione -->
+      <label for="dropdown">In quale area sei più interessato a migliorare?</label>
+      <select id="dropdown" name="interest" required>
+        <option value="">--Seleziona un'opzione--</option>
+        <option value="frontend">Sviluppo Front-end</option>
+        <option value="backend">Sviluppo Back-end</option>
+        <option value="ux">Design e UX</option>
+      </select>
+
+      <!--
+        Selezioni multiple: raggruppate semanticamente con fieldset+legend.
+        Ogni controllo è incapsulato nella relativa label per aumentare l’area d’interazione
+        e preservare l’unità controllo-testo in scenari responsive.
+      -->
+      <fieldset>
+        <legend>Cosa vorresti migliorare? (Puoi selezionare più opzioni)</legend>
+
+        <label class="choice">
+          <input type="checkbox" name="improvements" value="front-end" />
+          Front-end Projects
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="improvements" value="back-end" />
+          Back-end Projects
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="improvements" value="ux" />
+          Design e UX
+        </label>
+      </fieldset>
+
+      <!--
+        Scelta esclusiva: radio con lo stesso name per garantire mutua esclusione.
+        La richiesta di selezione è assicurata da required su una delle opzioni.
+      -->
+      <fieldset>
+        <legend>Consiglieresti questo modulo a un amico?</legend>
+
+        <label class="choice">
+          <input type="radio" name="recommend" value="definitely" required />
+          Sì, sicuramente
+        </label>
+
+        <label class="choice">
+          <input type="radio" name="recommend" value="maybe" />
+          Forse
+        </label>
+
+        <label class="choice">
+          <input type="radio" name="recommend" value="no" />
+          No
+        </label>
+      </fieldset>
+
+      <!-- Spazio libero per note qualitative -->
+      <label for="comments">Commenti aggiuntivi:</label>
+      <textarea id="comments" name="comments" placeholder="Scrivi qui i tuoi commenti" rows="4"></textarea>
+
+      <!-- Azione principale: invio dei dati -->
+      <button type="submit" id="submit">Invia</button>
+    </form>
+
+
+    <!-- Script per il cambio tema -->
+    <script>
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+
+      // Recupera il tema salvato o usa la preferenza del sistema
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        body.dataset.theme = savedTheme;
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        body.dataset.theme = prefersDark ? 'dark' : 'light';
+        themeToggle.textContent = prefersDark ? '☀️' : '🌙';
+      }
+
+      // Funzione per alternare tema e icona
+      function toggleTheme() {
+        const isDark = body.dataset.theme === 'dark';
+        body.dataset.theme = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', body.dataset.theme);
+        themeToggle.textContent = isDark ? '🌙' : '☀️';
+      }
+
+      // Gestione click e tastiera
+      themeToggle.addEventListener('click', toggleTheme);
+      themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') toggleTheme();
+      });
+    </script>
+
+  </main>
+</body>
+
+</html>

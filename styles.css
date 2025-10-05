@@ -1,0 +1,312 @@
+/* =========================================================
+   BASE / RESET
+   Allinea i comportamenti di default tra browser e definisce
+   la tipografia di partenza per l’interfaccia.
+   ========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenuti destinati esclusivamente ai lettori di schermo */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   LAYOUT & BACKGROUND
+   Struttura responsiva centrata; sfondo neutro con gradiente
+   poco invasivo per mantenere un’alta leggibilità.
+   ========================================================= */
+body {
+  background: linear-gradient(135deg, #dadff3 0%, #a4baec 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 48px 20px;
+}
+
+
+/* Contenitore centrale: limita la larghezza per una lettura confortevole */
+.container {
+  width: 100%;
+  max-width: 650px;
+}
+
+/* =========================================================
+   HEADER
+   Gerarchia tipografica essenziale; colori a contrasto moderato.
+   ========================================================= */
+header {
+  text-align: center;
+  margin-bottom: 28px;
+  color: #1f2937; /* slate-800 */
+}
+
+#title {
+  font-size: 2.1rem;
+  letter-spacing: 0.2px;
+  margin-bottom: 10px;
+}
+
+#description {
+  font-size: 1rem;
+  color: #4b5563; /* slate-600 */
+}
+
+/* =========================================================
+   CARD DEL FORM
+   Pannello scuro neutro con ombra morbida; micro-animazione
+   per feedback alla hover senza distrazioni.
+   ========================================================= */
+#survey-form {
+  background: rgba(31, 41, 55, 0.92); /* slate-800 semi-trasparente */
+  padding: 34px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.12);
+  color: #f3f4f6; /* slate-100 */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#survey-form:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.18);
+}
+
+/* =========================================================
+   ETICHETTE & CONTROLLI
+   Campi chiari sulla card scura per massimizzare il contrasto.
+   Focus visibile e coerente con l’accento indaco.
+   ========================================================= */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #e5e7eb; /* slate-200 */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(229, 231, 235, 0.35); /* slate-200 */
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #111827;              /* slate-900: testo nei campi */
+  background-color: #ffffff;   /* campi luminosi per leggibilità */
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.05s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #6366f1;       /* indigo-500 */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* Evidenza focus anche per navigazione da tastiera */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Placeholder con contrasto adeguato e aspetto discreto */
+::placeholder {
+  color: #9ca3af; /* slate-400 */
+}
+
+/* Textarea con altezza minima coerente al copy previsto */
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================================================
+   GRUPPI DI OPZIONI (CHECKBOX/RADIO)
+   fieldset+legend per struttura semantica; ogni opzione è una
+   label “a pill” che mantiene coesione controllo-testo nei layout responsivi.
+   ========================================================= */
+fieldset {
+  border: none;
+  margin: 10px 0 18px 0;
+}
+
+legend {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #e5e7eb; /* slate-200 */
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 14px 10px 0;
+  font-weight: 500;
+  color: #e5e7eb;
+  cursor: pointer;
+  line-height: 1.2;
+  white-space: nowrap; /* evita spezzamenti sgradevoli su schermi medi */
+}
+
+@media (max-width: 420px) {
+  .choice { white-space: normal; }  /* consente il wrap interno su schermi molto piccoli */
+}
+
+.choice > input[type="radio"],
+.choice > input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin: 0;
+  vertical-align: middle;
+}
+
+/* =========================================================
+   PULSANTE DI INVIO
+   Azione primaria con gradiente indaco/blu; interazioni sottili
+   per un feedback chiaro senza eccessi.
+   ========================================================= */
+button#submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #6366f1, #3b82f6); /* indigo-500 → blue-500 */
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.06rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.15s ease;
+}
+
+button#submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.28);
+  filter: brightness(1.02);
+}
+
+button#submit:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   Adeguamenti mirati per mantenere proporzioni e spaziatura
+   su viewport ridotte.
+   ========================================================= */
+@media (max-width: 640px) {
+  #survey-form { padding: 26px; border-radius: 14px; }
+  #title { font-size: 1.85rem; }
+}
+
+/* =========================================================
+   PREFERENZE DI MOVIMENTO
+   Rispetta le impostazioni di sistema riducendo transizioni/animazioni.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   GESTIONE TEMA SCURO
+   Override cromatici attivati tramite data-theme="dark" sul body.
+   ========================================================= */
+body[data-theme="dark"] {
+  background: linear-gradient(135deg, #1e1e26 0%, #2d2d3a 100%);
+  color: #f3f4f6; /* testo globale */
+}
+
+
+/* Titolo e header in tema scuro: colori ottimizzati per contrasto e gerarchia */
+body[data-theme="dark"] header {
+  color: #e5e7eb; /* testo principale chiaro (slate-200) */
+}
+
+body[data-theme="dark"] #title {
+  color: #f9fafb; /* quasi bianco per massima leggibilità */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* microcontrasto sul fondo scuro */
+}
+
+body[data-theme="dark"] #description {
+  color: #cbd5e1; /* slate-300, tono secondario coerente */
+}
+
+
+/* Card del form in tema scuro (contrasto adeguato con lo sfondo) */
+body[data-theme="dark"] #survey-form {
+  background: rgba(17, 24, 39, 0.92); /* slate-900 semi-trasparente */
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  color: #f3f4f6;
+}
+
+/* Campi modulo in tema scuro: fondo scuro, testo chiaro, bordo attenuato */
+body[data-theme="dark"] input[type="text"],
+body[data-theme="dark"] input[type="email"],
+body[data-theme="dark"] input[type="number"],
+body[data-theme="dark"] select,
+body[data-theme="dark"] textarea {
+  background-color: #111827;   /* slate-900 */
+  color: #e5e7eb;              /* slate-200 */
+  border-color: rgba(229, 231, 235, 0.18); /* slate-200 attenuato */
+}
+
+/* Placeholder in tema scuro */
+body[data-theme="dark"] ::placeholder {
+  color: #9ca3af; /* slate-400 */
+}
+
+/* Focus state coerente in tema scuro (accento indaco invariato) */
+body[data-theme="dark"] input:focus,
+body[data-theme="dark"] select:focus,
+body[data-theme="dark"] textarea:focus {
+  border-color: #6366f1; /* indigo-500 */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  outline: none;
+}
+
+/* Gruppi checkbox/radio: testo leggibile su sfondo scuro */
+body[data-theme="dark"] legend,
+body[data-theme="dark"] .choice {
+  color: #e5e7eb; /* slate-200 */
+}
+
+
+/* =========================================================
+   ICONA CAMBIO TEMA
+   Posizionata in alto a destra con cursore visibile.
+   ========================================================= */
+.theme-icon {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  font-size: 1.6rem;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+  z-index: 100;
+}
+
+/* Tema scuro: tonalità chiara per visibilità */
+body[data-theme="dark"] .theme-icon {
+  color: #f3f4f6;
+}
